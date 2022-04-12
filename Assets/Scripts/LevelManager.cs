@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        Platform.platformClear += NextPlatform;
+        Platform.OnPlatformComplete += NextPlatform;
     }
 
     // Update is called once per frame
@@ -25,6 +25,6 @@ public class LevelManager : MonoBehaviour
         numberPlatform++;
         if (numberPlatform >= platforms.Length)
             numberPlatform = 0;
-        player.SetNewWayPoint(platforms[numberPlatform].GetPlatformPlayerPoint());
+        player.SetNewWayPoint(platforms[numberPlatform].GetWayPoint());
     }
 }

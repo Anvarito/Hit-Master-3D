@@ -6,8 +6,10 @@ public class Game : MonoBehaviour
 {
     // Start is called before the first frame update
     public Bullet bulletPref;
-    private Bullet bullet;
     public Transform spawnPoint;
+
+    public Bullet[] bullets;
+    private int bulletNumber = 0;
     void Start()
     {
 
@@ -20,11 +22,30 @@ public class Game : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if( Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
-                bullet = Instantiate(bulletPref, spawnPoint.position, Quaternion.identity);
-                bullet.SetDirection(hit.point - spawnPoint.position);
+                BulletSpawn(hit.point);
             }
         }
+    }
+
+
+    private void BulletSpawn(Vector3 target)
+    {
+        Bullet bullet = bullets[bulletNumber];
+
+        if (!bullet.gameObject.activeInHierarchy)
+            bullet.gameObject.SetActive(true);
+
+        bullet.transform.parent = gameObject.transform;
+        bullet.transform.name = "bullet " + bulletNumber.ToString();
+
+        bullet.transform.position = spawnPoint.position;
+        bullet.SetDirection(target - spawnPoint.position);
+
+        bulletNumber++;
+        if (bulletNumber > bullets.Length - 1)
+            bulletNumber = 0;
+
     }
 }

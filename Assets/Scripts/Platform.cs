@@ -6,9 +6,9 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private Transform playerPosition;
+    [SerializeField] private Transform wayPoint;
 
-    public static Action platformClear;
+    public static Action OnPlatformComplete;
     private Enemy[] enemies;
 
     private void Start()
@@ -16,9 +16,9 @@ public class Platform : MonoBehaviour
         enemies = GetComponentsInChildren<Enemy>();
     }
 
-    public Vector3 GetPlatformPlayerPoint()
+    public Vector3 GetWayPoint()
     {
-        return playerPosition.position;
+        return wayPoint.position;
     }
     public void CompleteChecked()
     {
@@ -30,6 +30,6 @@ public class Platform : MonoBehaviour
             }
         }
 
-        platformClear?.Invoke();
+        OnPlatformComplete?.Invoke();
     }
 }
