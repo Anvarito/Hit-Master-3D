@@ -227,7 +227,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2194514871025506231}
   - component: {fileID: 1873148731350373157}
-  - component: {fileID: 1873148731350373147}
   m_Layer: 0
   m_Name: Man
   m_TagString: Untagged
@@ -271,29 +270,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1873148731350373147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531130455476784397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70528927871678749aaeb1928188dc9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbodies:
-  - {fileID: 1873148730297161558}
-  - {fileID: 1873148732023051570}
-  - {fileID: 1873148730506972719}
-  - {fileID: 1873148730166938549}
-  - {fileID: 1873148732269241726}
-  - {fileID: 1873148730651867909}
-  - {fileID: 1873148730774217180}
-  - {fileID: 1873148731267959723}
-  - {fileID: 1873148731911889103}
-  - {fileID: 1873148732118655448}
 --- !u!1 &1656130886025358934
 GameObject:
   m_ObjectHideFlags: 0
