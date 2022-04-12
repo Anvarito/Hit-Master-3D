@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -11,6 +9,7 @@ public class Platform : MonoBehaviour
     public static Action OnPlatformComplete;
     private Enemy[] enemies;
 
+    private bool isComplete = false;
     private void Start()
     {
         enemies = GetComponentsInChildren<Enemy>();
@@ -20,16 +19,25 @@ public class Platform : MonoBehaviour
     {
         return wayPoint.position;
     }
-    public void CompleteChecked()
+    public void CompleteCheker()
     {
-        for (int i = 0; i < enemies.Length; ++i)
+        if (IsComplete())
+            OnPlatformComplete?.Invoke();
+    }
+
+    public bool IsComplete()
+    {
+        if (enemies.Length > 0)
         {
-            if (!enemies[i].IsDeadStatus())
+            for (int i = 0; i < enemies.Length; ++i)
             {
-                return;
+                if (!enemies[i].IsDeadStatus())
+                {
+                    return false;
+                }
             }
         }
 
-        OnPlatformComplete?.Invoke();
+        return true;
     }
 }

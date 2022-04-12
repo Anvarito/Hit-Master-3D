@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,7 +27,7 @@ public class Player : MonoBehaviour
         point = wayPoint;
 
         NavMeshPath path = new NavMeshPath();
-        NavMesh.CalculatePath(transform.position, point, NavMesh.AllAreas, path);
+        NavMesh.CalculatePath(transform.position, wayPoint, NavMesh.AllAreas, path);
         bool noWay = (path.status == NavMeshPathStatus.PathInvalid);
 
         if (noWay)
@@ -41,7 +39,7 @@ public class Player : MonoBehaviour
         else
         {
             animator.SetBool(IsRunID, true);
-            meshAgent.SetDestination(point);
+            meshAgent.SetDestination(wayPoint);
         }
     }
 

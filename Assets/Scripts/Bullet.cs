@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed;
+    [HideInInspector] public float speed;
     private Vector3 direction;
     public void SetDirection(Vector3 dir)
     {
@@ -14,5 +12,10 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.Translate(direction * speed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        gameObject.SetActive(false);
     }
 }

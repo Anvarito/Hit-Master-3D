@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Platform[] platforms;
+    private Platform[] platforms;
     private int numberPlatform = 0;
     public Player player;
 
@@ -17,14 +14,24 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        platforms = GetComponentsInChildren<Platform>();
     }
 
     private void NextPlatform()
     {
         numberPlatform++;
         if (numberPlatform >= platforms.Length)
-            numberPlatform = 0;
+        {
+            // restart game
+            return;
+        }
+
+        //scip the platfor if it not have an enemy
+        if (platforms[numberPlatform].IsComplete())
+        {
+            NextPlatform();
+        }
+
         player.SetNewWayPoint(platforms[numberPlatform].GetWayPoint());
     }
 }

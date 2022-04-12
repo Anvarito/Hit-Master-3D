@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -7,7 +5,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     public Bullet bulletPref;
     public Transform spawnPoint;
-
+    public float bulletSpeed = 0.15f;
     public Bullet[] bullets;
     private int bulletNumber = 0;
     void Start()
@@ -37,6 +35,7 @@ public class Game : MonoBehaviour
         if (!bullet.gameObject.activeInHierarchy)
             bullet.gameObject.SetActive(true);
 
+        bullet.speed = bulletSpeed;
         bullet.transform.parent = gameObject.transform;
         bullet.transform.name = "bullet " + bulletNumber.ToString();
 

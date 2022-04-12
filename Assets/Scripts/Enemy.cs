@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -60,7 +59,7 @@ public class Enemy : MonoBehaviour
         foreach (var r in rigidbodies)
         {
             r.isKinematic = false;
-            r.AddForce(force * 30, ForceMode.Impulse);
+            r.AddForce(force * 80, ForceMode.Impulse);
         }
     }
 }
