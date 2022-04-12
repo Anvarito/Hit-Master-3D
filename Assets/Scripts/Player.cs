@@ -9,19 +9,19 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private int IsRunID;
-    void Start()
+
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         IsRunID = Animator.StringToHash("isRun");
         meshAgent = GetComponent<NavMeshAgent>();
-
         Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach(var rb in rigidbodies)
         {
             rb.isKinematic = true;
         }
     }
-
+    
     public void SetNewWayPoint(Vector3 wayPoint)
     {
         point = wayPoint;

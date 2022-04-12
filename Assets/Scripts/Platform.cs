@@ -9,7 +9,6 @@ public class Platform : MonoBehaviour
     public static Action OnPlatformComplete;
     private Enemy[] enemies;
 
-    private bool isComplete = false;
     private void Start()
     {
         enemies = GetComponentsInChildren<Enemy>();

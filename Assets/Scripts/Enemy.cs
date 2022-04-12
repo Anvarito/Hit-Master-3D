@@ -10,12 +10,17 @@ public class Enemy : MonoBehaviour
 
     public Animator animator;
 
-    public UnityEvent OnHit;
     private bool isDead;
 
+    private Platform platform;
     public bool IsDeadStatus()
     {
         return isDead;
+    }
+
+    private void Awake()
+    {
+        platform = GetComponentInParent<Platform>();
     }
 
     void Start()
@@ -40,7 +45,7 @@ public class Enemy : MonoBehaviour
         {
             isDead = true;
             RagDollActivate();
-            OnHit?.Invoke();
+            platform.CompleteCheker();
         }
     }
 

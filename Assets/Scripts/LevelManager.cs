@@ -8,13 +8,14 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        platforms = GetComponentsInChildren<Platform>();
         Platform.OnPlatformComplete += NextPlatform;
+        NextPlatform();
     }
 
     // Update is called once per frame
     void Update()
     {
-        platforms = GetComponentsInChildren<Platform>();
     }
 
     private void NextPlatform()
