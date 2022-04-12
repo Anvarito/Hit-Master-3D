@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -6,10 +7,18 @@ public class LevelManager : MonoBehaviour
     private int numberPlatform = 0;
     public Player player;
 
+    private void OnEnable()
+    {
+        Platform.OnPlatformComplete += NextPlatform;
+    }
+    private void OnDisable()
+    {
+        Platform.OnPlatformComplete -= NextPlatform;
+    }
+
     void Start()
     {
         platforms = GetComponentsInChildren<Platform>();
-        Platform.OnPlatformComplete += NextPlatform;
         NextPlatform();
     }
 
@@ -23,7 +32,7 @@ public class LevelManager : MonoBehaviour
         numberPlatform++;
         if (numberPlatform >= platforms.Length)
         {
-            // restart game
+            SceneManager.LoadScene(0);
             return;
         }
 

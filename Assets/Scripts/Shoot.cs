@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class Shoot : MonoBehaviour
 {
     // Start is called before the first frame update
     public Bullet bulletPref;

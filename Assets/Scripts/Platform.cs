@@ -1,17 +1,23 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private Transform wayPoint;
 
     public static Action OnPlatformComplete;
-    private Enemy[] enemies;
+    private List<Enemy> enemies = new List<Enemy>();
 
-    private void Start()
+    private void Awake()
     {
-        enemies = GetComponentsInChildren<Enemy>();
+        foreach(Transform t in transform)
+        {
+            Enemy enemy;
+            if(t.TryGetComponent(out enemy)){
+                enemies.Add(enemy);
+            }
+        }
     }
 
     public Vector3 GetWayPoint()
@@ -24,11 +30,12 @@ public class Platform : MonoBehaviour
             OnPlatformComplete?.Invoke();
     }
 
+    [ContextMenu("C")]
     public bool IsComplete()
     {
-        if (enemies.Length > 0)
+        if (enemies.Count > 0)
         {
-            for (int i = 0; i < enemies.Length; ++i)
+            for (int i = 0; i < enemies.Count; ++i)
             {
                 if (!enemies[i].IsDeadStatus())
                 {
