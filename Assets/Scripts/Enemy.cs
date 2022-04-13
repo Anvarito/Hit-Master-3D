@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     public Animator animator;
 
-    private bool isDead;
+    private bool isDead = false;
 
     private Platform platform;
     public bool IsDeadStatus()

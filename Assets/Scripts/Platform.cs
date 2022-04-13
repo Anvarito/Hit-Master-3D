@@ -8,7 +8,6 @@ public class Platform : MonoBehaviour
 
     public static Action OnPlatformComplete;
     private List<Enemy> enemies = new List<Enemy>();
-
     private void Awake()
     {
         foreach(Transform t in transform)

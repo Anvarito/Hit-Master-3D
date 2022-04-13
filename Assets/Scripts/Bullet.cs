@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(direction * speed);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -1,37 +1,38 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private Platform[] platforms;
+    public List<Platform> platforms;
     private int numberPlatform = 0;
     public Player player;
 
-    private void OnEnable()
+    private void Awake()
     {
+
+        Application.targetFrameRate = 30;
+
         Platform.OnPlatformComplete += NextPlatform;
+        //foreach (Transform t in transform)
+        //{
+        //    Platform platform;
+        //    if (t.TryGetComponent(out platform))
+        //    {
+        //        platforms.Add(platform);
+        //    }
+        //}
     }
-    private void OnDisable()
-    {
-        Platform.OnPlatformComplete -= NextPlatform;
-    }
-
     void Start()
-    {
-        platforms = GetComponentsInChildren<Platform>();
-        NextPlatform();
-    }
-
-    // Update is called once per frame
-    void Update()
     {
     }
 
     private void NextPlatform()
     {
         numberPlatform++;
-        if (numberPlatform >= platforms.Length)
+        if (numberPlatform >= platforms.Count)
         {
+            Platform.OnPlatformComplete -= NextPlatform;
             SceneManager.LoadScene(0);
             return;
         }
