@@ -35,10 +35,17 @@ public class Shoot : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+            Vector3 aimPoint;
             if (Physics.Raycast(ray, out hit))
             {
-                BulletSpawn(hit.point);
+                aimPoint = hit.point;
             }
+            else
+            {
+                aimPoint = ray.origin + ray.direction * 1000;
+            }
+
+            BulletSpawn(aimPoint);
         }
     }
 
