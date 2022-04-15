@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     {
         gameObject.SetActive(true);
         rigidbody.velocity = Vector3.zero;
-        rigidbody.AddForce(direction * speed * Time.deltaTime, ForceMode.Impulse);
+        rigidbody.AddForce(direction * speed, ForceMode.Impulse);
     }
 
     private void Deactivate()
