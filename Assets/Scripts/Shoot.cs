@@ -7,10 +7,15 @@ public class Shoot : MonoBehaviour
     public Transform spawnPoint;
     public float bulletSpeed = 0.15f;
     public Bullet[] bullets;
+
     private int bulletNumber = 0;
+    private Player player;
+
+    private float cooldownTime = 0;
+    [SerializeField] private float cooldown = 1;
     void Start()
     {
-
+        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -21,52 +26,54 @@ public class Shoot : MonoBehaviour
         {
             if (touch.phase == TouchPhase.Began)
             {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
-                {
-                    BulletSpawn(hit.point);
-                }
+                RaycastScreen(touch.position);
             }
         }
 
 
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Vector3 aimPoint;
-            if (Physics.Raycast(ray, out hit))
-            {
-                aimPoint = hit.point;
-            }
-            else
-            {
-                aimPoint = ray.origin + ray.direction * 1000;
-            }
-
-            BulletSpawn(aimPoint);
+            RaycastScreen(Input.mousePosition);
         }
     }
 
+
+    private void RaycastScreen(Vector3 screenPoint)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(screenPoint);
+        RaycastHit hit;
+        Vector3 aimPoint;
+        if (Physics.Raycast(ray, out hit))
+        {
+            aimPoint = hit.point;
+        }
+        else
+        {
+            aimPoint = ray.origin + ray.direction * 1000;
+        }
+
+        if (Time.time >= cooldownTime)
+        {
+            player.RotateToShootDirect(aimPoint - transform.position);
+            BulletSpawn(aimPoint);
+
+            cooldownTime = Time.time + cooldown;
+        }
+    }
 
     private void BulletSpawn(Vector3 target)
     {
         Bullet bullet = bullets[bulletNumber];
 
-        if (!bullet.gameObject.activeInHierarchy)
-            bullet.gameObject.SetActive(true);
-
         bullet.speed = bulletSpeed;
-        bullet.transform.parent = gameObject.transform;
         bullet.transform.name = "bullet " + bulletNumber.ToString();
-
         bullet.transform.position = spawnPoint.position;
         bullet.SetDirection(target - spawnPoint.position);
+
+        bullet.Activate();
 
         bulletNumber++;
         if (bulletNumber > bullets.Length - 1)
             bulletNumber = 0;
-
     }
 }

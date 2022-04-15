@@ -4,9 +4,6 @@ using UnityEngine.Events;
 public class Enemy : MonoBehaviour
 {
     public Rigidbody[] rigidbodies;
-    public Collider[] colliders;
-    public Collider mainCollider;
-    public Rigidbody mainRigid;
 
     public Animator animator;
 
@@ -25,46 +22,34 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        mainCollider.enabled = true;
         animator.enabled = true;
-        foreach (var c in colliders)
-        {
-            c.enabled = false;
-        }
+        
         foreach (var r in rigidbodies)
         {
             r.isKinematic = true;
+            r.gameObject.AddComponent<RagDollElement>().enemy = this;
         }
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        Bullet bullet;
-        if (collision.collider.TryGetComponent(out bullet))
-        {
-            isDead = true;
-            RagDollActivate();
-            platform.CompleteCheker();
-        }
+        //Bullet bullet;
+        //if (collision.collider.TryGetComponent(out bullet))
+        //{
+        //    isDead = true;
+        //    RagDollActivate();
+        //    platform.CompleteCheker();
+        //}
     }
 
-    private void RagDollActivate()
+    public void RagDollActivate()
     {
-        Destroy(mainCollider);
-        Destroy(mainRigid);
         animator.enabled = false;
 
-        Vector3 force = (transform.position - Camera.main.transform.position).normalized;
-
-        foreach (var c in colliders)
-        {
-            c.enabled = true;
-        }
         foreach (var r in rigidbodies)
         {
             r.isKinematic = false;
-            r.AddForce(force * 80, ForceMode.Impulse);
         }
     }
 }
