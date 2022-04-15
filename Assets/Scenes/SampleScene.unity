@@ -269,7 +269,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1121525155587680, guid: c6865c562fd3f2841a92dc0cbbd6b4b4, type: 3}
       propertyPath: m_Name
-      value: SM_Wep_WaterPistol_01
+      value: USP match
       objectReference: {fileID: 0}
     - target: {fileID: 4764624344734074, guid: c6865c562fd3f2841a92dc0cbbd6b4b4, type: 3}
       propertyPath: m_RootOrder
@@ -1738,7 +1738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1f784c1f61f9ed845a4efab0065a5fe8, type: 3}
       propertyPath: m_Name
-      value: awat
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1092408308860062549, guid: 1f784c1f61f9ed845a4efab0065a5fe8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
