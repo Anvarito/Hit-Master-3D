@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        IsRunID = Animator.StringToHash("isRun");
+        IsRunID = Animator.StringToHash("IsRun");
         IsShootID = Animator.StringToHash("IsShoot");
 
         meshAgent = GetComponent<NavMeshAgent>();
