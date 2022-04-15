@@ -8,35 +8,44 @@ public class Platform : MonoBehaviour
 
     public static Action OnPlatformComplete;
     private List<Enemy> enemies = new List<Enemy>();
+
+    private LevelManager levelManager;
+    private bool isReach = false;
+    private bool platformClear = false;
+
     private void Awake()
     {
-        foreach(Transform t in transform)
-        {
-            Enemy enemy;
-            if(t.TryGetComponent(out enemy)){
-                enemies.Add(enemy);
-            }
-        }
+        enemies.AddRange(GetComponentsInChildren<Enemy>());
+        levelManager = GetComponentInParent<LevelManager>();
     }
 
-    public Vector3 GetWayPoint()
+    public Transform GetWayPoint()
     {
-        return wayPoint.position;
+        return wayPoint;
+    }
+
+    public void PointHasBeenReach()
+    {
+        isReach = true;
+        CompleteCheker();
     }
     public void CompleteCheker()
     {
-        if (IsComplete())
-            OnPlatformComplete?.Invoke();
+        var name = transform.name;
+        if (IsComplete() && isReach /*&& !platformClear*/)
+        {
+            levelManager.NextPlatform();
+            //platformClear = true;
+        }
     }
 
-    [ContextMenu("C")]
     public bool IsComplete()
     {
         if (enemies.Count > 0)
         {
             for (int i = 0; i < enemies.Count; ++i)
             {
-                if (!enemies[i].IsDeadStatus())
+                if (!enemies[i].isDead)
                 {
                     return false;
                 }

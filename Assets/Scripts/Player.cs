@@ -5,12 +5,16 @@ public class Player : MonoBehaviour
 {
     private NavMeshAgent meshAgent;
 
+    public LevelManager levelManager;
+
     private Vector3 point;
 
     private Animator animator;
 
     private int IsRunID;
     private int IsShootID;
+
+    [HideInInspector] public bool IsRun { get; private set; }
 
     private void Awake()
     {
@@ -43,7 +47,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            animator.SetBool(IsRunID, true);
+            IsRun = true;
+            animator.SetBool(IsRunID, IsRun);
             meshAgent.SetDestination(wayPoint);
         }
     }
@@ -60,22 +65,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    GetComponent<Animator>().enabled = false;
-        //    foreach (var i in rigidbodies)
-        //    {
-        //        i.isKinematic = false;
-        //    }
-        //}
-
         if (!meshAgent.pathPending)
         {
             if (meshAgent.remainingDistance <= meshAgent.stoppingDistance)
             {
                 //if (!meshAgent.hasPath || meshAgent.velocity.sqrMagnitude == 0f)
                 {
-                    animator.SetBool(IsRunID, false);
+                    IsRun = false;
+                    animator.SetBool(IsRunID, IsRun);
+                    levelManager.PlayerReachedPoint();
                 }
             }
         }

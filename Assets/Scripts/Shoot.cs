@@ -13,6 +13,8 @@ public class Shoot : MonoBehaviour
 
     private float cooldownTime = 0;
     [SerializeField] private float cooldown = 1;
+
+
     void Start()
     {
         player = GetComponent<Player>();
@@ -21,6 +23,8 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.IsRun)
+            return;
 
         foreach (Touch touch in Input.touches)
         {

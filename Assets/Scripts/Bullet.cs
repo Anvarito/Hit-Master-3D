@@ -32,13 +32,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print(collision.transform.name + " who: " + collision.transform.root.name);
-
         RagDollElement rde;
         if (collision.transform.TryGetComponent(out rde))
         {
             rde.enemy.RagDollActivate();
-            rde.rigidbody.AddForce(direction * 300, ForceMode.Impulse);
+            rde.rigidbody.AddForce(direction * 100, ForceMode.Impulse);
         }
 
         Deactivate();

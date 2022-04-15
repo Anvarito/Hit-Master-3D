@@ -7,13 +7,9 @@ public class Enemy : MonoBehaviour
 
     public Animator animator;
 
-    private bool isDead = false;
+    [HideInInspector] public bool isDead { get; private set; }
 
     private Platform platform;
-    public bool IsDeadStatus()
-    {
-        return isDead;
-    }
 
     private void Awake()
     {
@@ -31,18 +27,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Bullet bullet;
-        //if (collision.collider.TryGetComponent(out bullet))
-        //{
-        //    isDead = true;
-        //    RagDollActivate();
-        //    platform.CompleteCheker();
-        //}
-    }
-
     public void RagDollActivate()
     {
         animator.enabled = false;
@@ -51,5 +35,8 @@ public class Enemy : MonoBehaviour
         {
             r.isKinematic = false;
         }
+
+        isDead = true;
+        platform.CompleteCheker();
     }
 }

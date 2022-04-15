@@ -7,42 +7,32 @@ public class LevelManager : MonoBehaviour
     public List<Platform> platforms;
     private int numberPlatform = 0;
     public Player player;
+    public CameraBahaviour cameraBahaviour;
+    private Platform currentPlatform;
 
-    private void Awake()
+    private void Start()
     {
-
-        Application.targetFrameRate = 30;
-
-        Platform.OnPlatformComplete += NextPlatform;
-        //foreach (Transform t in transform)
-        //{
-        //    Platform platform;
-        //    if (t.TryGetComponent(out platform))
-        //    {
-        //        platforms.Add(platform);
-        //    }
-        //}
-    }
-    void Start()
-    {
+        currentPlatform = platforms[0];
     }
 
-    private void NextPlatform()
+    public void PlayerReachedPoint()
     {
-        numberPlatform++;
+        if (currentPlatform != null)
+            currentPlatform.PointHasBeenReach();
+    }
+
+    public void NextPlatform()
+    {
+        numberPlatform += 1;
         if (numberPlatform >= platforms.Count)
         {
-            Platform.OnPlatformComplete -= NextPlatform;
             SceneManager.LoadScene(0);
             return;
         }
 
-        //scip the platfor if it not have an enemy
-        if (platforms[numberPlatform].IsComplete())
-        {
-            NextPlatform();
-        }
+        currentPlatform = platforms[numberPlatform];
+        player.SetNewWayPoint(currentPlatform.GetWayPoint().position);
+        cameraBahaviour.SetLookAt(currentPlatform.GetWayPoint());
 
-        player.SetNewWayPoint(platforms[numberPlatform].GetWayPoint());
     }
 }
